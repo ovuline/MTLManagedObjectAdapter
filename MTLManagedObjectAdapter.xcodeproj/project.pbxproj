@@ -58,6 +58,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F6F6B412538EB6D00F25078 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
+		3F6F6B422538EB6D00F25078 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
+		3F6F6B432538EB6D00F25078 /* macOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		3F6F6B442538EB6D00F25078 /* macOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Base.xcconfig"; sourceTree = "<group>"; };
+		3F6F6B452538EB6D00F25078 /* macOS-XCTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-XCTest.xcconfig"; sourceTree = "<group>"; };
+		3F6F6B462538EB6D00F25078 /* macOS-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
 		5470B5071985122200E4D941 /* MTLManagedObjectAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLManagedObjectAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5470B50D1985122200E4D941 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5470B50E1985122200E4D941 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -152,6 +158,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F6F6B402538EB6D00F25078 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				3F6F6B412538EB6D00F25078 /* macOS-Application.xcconfig */,
+				3F6F6B422538EB6D00F25078 /* macOS-Framework.xcconfig */,
+				3F6F6B432538EB6D00F25078 /* macOS-StaticLibrary.xcconfig */,
+				3F6F6B442538EB6D00F25078 /* macOS-Base.xcconfig */,
+				3F6F6B452538EB6D00F25078 /* macOS-XCTest.xcconfig */,
+				3F6F6B462538EB6D00F25078 /* macOS-DynamicLibrary.xcconfig */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
 		5470B4FD1985122200E4D941 = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +265,7 @@
 			children = (
 				5470B587198514F700E4D941 /* Base */,
 				5470B591198514F700E4D941 /* iOS */,
+				3F6F6B402538EB6D00F25078 /* macOS */,
 				5470B595198514F700E4D941 /* Mac OS X */,
 				5470B59B198514F700E4D941 /* README.md */,
 			);
@@ -428,7 +448,7 @@
 		5470B4FE1985122200E4D941 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = GitHub;
 				TargetAttributes = {
 					5470B51D1985122200E4D941 = {
@@ -444,10 +464,11 @@
 			};
 			buildConfigurationList = 5470B5011985122200E4D941 /* Build configuration list for PBXProject "MTLManagedObjectAdapter" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 5470B4FD1985122200E4D941;
 			productRefGroup = 5470B5081985122200E4D941 /* Products */;
@@ -558,9 +579,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5470B58A198514F700E4D941 /* Debug.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -569,40 +592,44 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5470B58C198514F700E4D941 /* Release.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		5470B5301985122300E4D941 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B599198514F700E4D941 /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = 3F6F6B422538EB6D00F25078 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
 		};
 		5470B5311985122300E4D941 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B599198514F700E4D941 /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = 3F6F6B422538EB6D00F25078 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
 		5470B5331985122300E4D941 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B596198514F700E4D941 /* Mac-Application.xcconfig */;
+			baseConfigurationReference = 3F6F6B412538EB6D00F25078 /* macOS-Application.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MTLManagedObjectAdapter.framework/Versions/A/MTLManagedObjectAdapter";
 				CLANG_ENABLE_MODULES = YES;
@@ -618,6 +645,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = xctest;
@@ -626,7 +654,7 @@
 		};
 		5470B5341985122300E4D941 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B596198514F700E4D941 /* Mac-Application.xcconfig */;
+			baseConfigurationReference = 3F6F6B412538EB6D00F25078 /* macOS-Application.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MTLManagedObjectAdapter.framework/Versions/A/MTLManagedObjectAdapter";
 				CLANG_ENABLE_MODULES = YES;
@@ -642,6 +670,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -651,28 +680,31 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5470B58D198514F700E4D941 /* Test.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Test;
 		};
 		5470B59D1985153C00E4D941 /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B599198514F700E4D941 /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = 3F6F6B422538EB6D00F25078 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Test;
 		};
 		5470B59E1985153C00E4D941 /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B596198514F700E4D941 /* Mac-Application.xcconfig */;
+			baseConfigurationReference = 3F6F6B412538EB6D00F25078 /* macOS-Application.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MTLManagedObjectAdapter.framework/Versions/A/MTLManagedObjectAdapter";
 				CLANG_ENABLE_MODULES = YES;
@@ -688,6 +720,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = xctest;
@@ -698,28 +731,31 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5470B58B198514F700E4D941 /* Profile.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Profile;
 		};
 		5470B5A31985155E00E4D941 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B599198514F700E4D941 /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = 3F6F6B422538EB6D00F25078 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Profile;
 		};
 		5470B5A41985155E00E4D941 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5470B596198514F700E4D941 /* Mac-Application.xcconfig */;
+			baseConfigurationReference = 3F6F6B412538EB6D00F25078 /* macOS-Application.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MTLManagedObjectAdapter.framework/Versions/A/MTLManagedObjectAdapter";
 				CLANG_ENABLE_MODULES = YES;
@@ -735,6 +771,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -749,6 +786,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -763,6 +801,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -777,6 +816,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -791,6 +831,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				INFOPLIST_FILE = MTLManagedObjectAdapter/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.${PRODUCT_NAME:rfc1034identifier}";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -807,6 +848,7 @@
 				);
 				INFOPLIST_FILE = MTLManagedObjectAdapterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -823,6 +865,7 @@
 				);
 				INFOPLIST_FILE = MTLManagedObjectAdapterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -839,6 +882,7 @@
 				);
 				INFOPLIST_FILE = MTLManagedObjectAdapterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -854,6 +898,7 @@
 				);
 				INFOPLIST_FILE = MTLManagedObjectAdapterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;

@@ -26,7 +26,7 @@ const NSInteger MTLManagedObjectAdapterErrorInvalidManagedObjectMapping = 8;
 
 // Performs the given block in the context's queue, if it has one.
 static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
-	if (context.concurrencyType == NSConfinementConcurrencyType) {
+	if (context.concurrencyType == NSPrivateQueueConcurrencyType) {
 		return block();
 	}
 
@@ -150,7 +150,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
 #pragma mark Serialization
 
-- (id)modelFromManagedObject:(NSManagedObject *)managedObject processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError **)error {
+- (id)modelFromManagedObject:(NSManagedObject *)managedObject processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError * __autoreleasing *)error {
 	NSParameterAssert(managedObject != nil);
 	NSParameterAssert(processedObjects != nil);
 
@@ -284,7 +284,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 	return model;
 }
 
-+ (id)modelOfClass:(Class)modelClass fromManagedObject:(NSManagedObject *)managedObject error:(NSError **)error {
++ (id)modelOfClass:(Class)modelClass fromManagedObject:(NSManagedObject *)managedObject error:(NSError * __autoreleasing *)error {
 	NSSet *propertyKeys = [modelClass propertyKeys];
 
 	for (NSString *mappedPropertyKey in [modelClass managedObjectKeysByPropertyKey]) {
@@ -312,7 +312,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 	return [self modelOfClass:modelClass fromManagedObject:managedObject processedObjects:processedObjects error:error];
 }
 
-+ (id)modelOfClass:(Class)modelClass fromManagedObject:(NSManagedObject *)managedObject processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError **)error {
++ (id)modelOfClass:(Class)modelClass fromManagedObject:(NSManagedObject *)managedObject processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError * __autoreleasing *)error {
 	NSParameterAssert(modelClass != nil);
 	NSParameterAssert(processedObjects != nil);
 
@@ -343,7 +343,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 	return [adapter modelFromManagedObject:managedObject processedObjects:processedObjects error:error];
 }
 
-- (id)managedObjectFromModel:(id<MTLManagedObjectSerializing>)model insertingIntoContext:(NSManagedObjectContext *)context processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError **)error {
+- (id)managedObjectFromModel:(id<MTLManagedObjectSerializing>)model insertingIntoContext:(NSManagedObjectContext *)context processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError * __autoreleasing *)error {
 	NSParameterAssert(model != nil);
 	NSParameterAssert(context != nil);
 	NSParameterAssert(processedObjects != nil);
@@ -434,6 +434,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
 	NSDictionary *dictionaryValue = model.dictionaryValue;
 	NSDictionary *managedObjectProperties = managedObject.entity.propertiesByName;
+	NSError * __autoreleasing *localError = error;
 
 	[dictionaryValue enumerateKeysAndObjectsUsingBlock:^(NSString *propertyKey, id value, BOOL *stop) {
 		NSString *managedObjectKey = self.managedObjectKeysByPropertyKey[propertyKey];
@@ -452,7 +453,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 					id<MTLTransformerErrorHandling> errorHandlingTransformer = (id)transformer;
 
 					BOOL success = YES;
-					transformedValue = [errorHandlingTransformer reverseTransformedValue:value success:&success error:error];
+					transformedValue = [errorHandlingTransformer reverseTransformedValue:value success:&success error:localError];
 
 					if (!success) return NO;
 				} else {
@@ -584,7 +585,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 	return managedObject;
 }
 
-+ (id)managedObjectFromModel:(id<MTLManagedObjectSerializing>)model insertingIntoContext:(NSManagedObjectContext *)context error:(NSError **)error {
++ (id)managedObjectFromModel:(id<MTLManagedObjectSerializing>)model insertingIntoContext:(NSManagedObjectContext *)context error:(NSError * __autoreleasing *)error {
 	CFDictionaryKeyCallBacks keyCallbacks = kCFTypeDictionaryKeyCallBacks;
 
 	// Compare MTLModel keys using pointer equality, not -isEqual:.
@@ -600,7 +601,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 	return [self managedObjectFromModel:model insertingIntoContext:context processedObjects:processedObjects error:error];
 }
 
-+ (id)managedObjectFromModel:(id<MTLManagedObjectSerializing>)model insertingIntoContext:(NSManagedObjectContext *)context processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError **)error {
++ (id)managedObjectFromModel:(id<MTLManagedObjectSerializing>)model insertingIntoContext:(NSManagedObjectContext *)context processedObjects:(CFMutableDictionaryRef)processedObjects error:(NSError * __autoreleasing *)error {
 	NSParameterAssert(model != nil);
 	NSParameterAssert(context != nil);
 	NSParameterAssert(processedObjects != nil);
@@ -663,7 +664,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 	}
 }
 
-- (NSPredicate *)uniquingPredicateForModel:(NSObject<MTLManagedObjectSerializing> *)model success:(BOOL *)success error:(NSError **)error {
+- (NSPredicate *)uniquingPredicateForModel:(NSObject<MTLManagedObjectSerializing> *)model success:(BOOL *)success error:(NSError * __autoreleasing *)error {
 	if (![self.modelClass respondsToSelector:@selector(propertyKeysForManagedObjectUniquing)]) return nil;
 
 	NSSet *propertyKeys = [self.modelClass propertyKeysForManagedObjectUniquing];
@@ -736,7 +737,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 			continue;
 		}
 
-		objc_property_t property = class_getProperty(modelClass, key.UTF8String);
+		objc_property_t property = class_getProperty(modelClass, (const char *)key.UTF8String);
 
 		if (property == NULL) continue;
 
