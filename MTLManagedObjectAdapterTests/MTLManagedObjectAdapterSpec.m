@@ -34,7 +34,7 @@ describe(@"with a confined context", ^{
 	__block NSEntityDescription *childEntity;
 
 	beforeEach(^{
-		context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+		context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 		expect(context).notTo(beNil());
 
 		context.undoManager = nil;
@@ -380,7 +380,7 @@ describe(@"with a child that fails serialization", ^{
 	__block MTLParentTestModel *parentModel;
 
 	beforeEach(^{
-		context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+		context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 		expect(context).notTo(beNil());
 
 		context.undoManager = nil;
