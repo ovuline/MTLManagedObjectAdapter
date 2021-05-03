@@ -1,4 +1,4 @@
-github "Mantle/Mantle" "2.1.5"
-github "Quick/Nimble" "v9.0.0"
-github "Quick/Quick" "v3.0.0"
-github "jspahrsummers/xcconfigs" "1.0"
+github "Mantle/Mantle" "bbe0cbe68582a18a6df7516778196ba3cf420ad3"
+github "Quick/Nimble" "v9.0.1"
+github "Quick/Quick" "v3.1.2"
+github "jspahrsummers/xcconfigs" "1.1"
